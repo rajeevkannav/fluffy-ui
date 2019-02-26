@@ -1,0 +1,11 @@
+.v-center {
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+}
+
+.scrollable {
+    height: 400px;
+    overflow: auto;
+}
