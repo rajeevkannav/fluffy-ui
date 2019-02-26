@@ -9,10 +9,18 @@ todoApp.config(function ($routeProvider) {
             templateUrl: 'views/archived.htm',
             controller: 'archivedTodoController'
         })
+        .when('/editTodo/:id', {
+            templateUrl: 'views/edit.htm',
+            controller: 'editTodoController'
+        })
+        .when('/attachTags/:id', {
+            templateUrl: 'views/attach_tags.htm',
+            controller: 'tagsController'
+        })
         .when('/test', {
             templateUrl: 'views/test.htm',
             controller: 'testController'
         })
-        .otherwise({ redirectTo: '/' });
+        .otherwise({redirectTo: '/'});
 });
 
