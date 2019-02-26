@@ -1,4 +1,52 @@
-<div class="alert alert-success" role="alert">
-    Bootstrap in action!
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h3>Available Todos</h3>
+    </div>
+
+    <div class="col-md-9 col-md-offset-3 col-sm-offset-3">
+        <div class="pull-right">
+            <form ng-submit="addTodo()">
+                <div class="input-group">
+                    <input type="text" ng-model="newTodo.title" class="form-control">
+                    <input type="submit" value="Add Todo" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<p>Nothing here!!! {{2 + 4}}</p>
+<br/>
+<div ng-switch="todos.length">
+    <div ng-switch-when=0>
+        <div class="row">
+            <div class="col-md-12 alert alert-success" role="alert">
+                Hooray!!! no todo
+            </div>
+        </div>
+    </div>
+    <div ng-switch-default>
+        <div class="row" ng-repeat="todo in todos">
+            <div class="col-md-6">
+                <a href="#" ng-class="{lineThrough: todo.status === 'finished'}"
+                   ng-click="toggleStatus(todo._id.$oid, todo.status)">
+                    <input type="checkbox" ng-checked="todo.status === 'finished'" class="pull-left">
+                    {{todo.title}}
+                </a>
+
+                <!--Static badges Start-->
+                <span class="badge badge-primary">Primary badge</span>
+                <span class="badge badge-success">Success badge</span>
+                <span class="badge badge-info">Info badge</span>
+                <span class="badge badge-warning">Warning badge</span>
+                <span class="badge badge-danger">Danger badge</span>
+                <!--Static badges end-->
+            </div>
+            <div class="col-md-6">
+                <a href="#" data-ng-click="editTitle($index)"> Edit </a>
+                |
+                <a href="#"> Attach Tag(s) </a>
+                |
+                <a href="#" ng-click="deleteTodo(todo._id.$oid)"> Delete </a>
+            </div>
+        </div>
+    </div>
+</div>

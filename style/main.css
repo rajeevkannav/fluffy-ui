@@ -9,3 +9,7 @@
     height: 400px;
     overflow: auto;
 }
+
+.lineThrough {
+    text-decoration: line-through;
+}
