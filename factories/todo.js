@@ -43,3 +43,5 @@ todoApp.factory('Todo', ['$resource', function ($resource) {
     }
     return $resource(todoResourceUrl, todoResourceParams, actions); // Note the full endpoint address
 }]);
+
+

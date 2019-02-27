@@ -15,7 +15,9 @@
             <div class="col-md-8">
                 <a href="#" ng-class="{lineThrough: todo.status === 'finished'}"
                    ng-click="toggleStatus(todo._id.$oid, todo.status)">
-                    <input type="checkbox" ng-checked="todo.status === 'finished'" class="pull-left">
+                    <input type="checkbox"
+                           ng-checked="todo.status === 'finished'"
+                           class="pull-left">
                     {{todo.title}}
                 </a>
 
@@ -39,8 +41,23 @@
 <br/>
 <hr class="style5">
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-9">
+    <div class="col-md-6">
+        <form ng-submit="queryViaTag()" class="form-inline">
+            <div class="form-group">
+                <input type="search" class="form-control mr-1"
+                       placeholder="Search" id="searchText"
+                       name="searchText"
+                       ng-model="query">
+            </div>
+            <div class="form-group">
+                <input type="submit"
+                       ng-disabled="!query"
+                       value="Lookup"
+                       class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
         <form ng-submit="addTodo()" class="form-inline">
             <div class="form-group">
                 <input type="text"
@@ -48,7 +65,10 @@
                        placeholder="Todo title"
                        class="form-control mr-1">
             </div>
-            <input type="submit" value="Add Todo" class="btn btn-primary">
+            <input type="submit"
+                   ng-disabled="!newTodo.title"
+                   value="Add Todo"
+                   class="btn btn-primary">
         </form>
     </div>
 </div>

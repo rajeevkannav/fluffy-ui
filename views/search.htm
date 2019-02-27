@@ -1,0 +1,26 @@
+<div class="page-header text-center">
+    <h1>Todos by tags :: {{query}} </h1>
+</div>
+<br/>
+<div ng-switch="todos.length">
+    <div ng-switch-when=0>
+        <div class="row">
+            <div class="col-md-12 alert alert-success" role="alert">
+                No todo(s) found with given tag
+            </div>
+        </div>
+    </div>
+    <div ng-switch-default>
+        <div class="row" ng-repeat="todo in todos">
+            <div class="col-md-6">
+                {{todo.title}}
+            </div>
+            <div class="col-md-6">
+                <div class="col-3" ng-repeat="tag in todo.tags">
+                    <span class="badge badge-success">{{tag.name}}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

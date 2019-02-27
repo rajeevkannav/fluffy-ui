@@ -3,7 +3,7 @@ todoApp.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'views/home.htm',
-            controller: 'mainController'
+            controller: 'todosController'
         })
         .when('/archived', {
             templateUrl: 'views/archived.htm',
@@ -17,9 +17,9 @@ todoApp.config(function ($routeProvider) {
             templateUrl: 'views/attach_tags.htm',
             controller: 'tagsController'
         })
-        .when('/test', {
-            templateUrl: 'views/test.htm',
-            controller: 'testController'
+        .when('/search/:query', {
+            templateUrl: 'views/search.htm',
+            controller: 'searchController'
         })
         .otherwise({redirectTo: '/'});
 });
