@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/rajeevkannav/fluffy-ui#readme",
   "dependencies": {
+    "@cgross/angular-notify": "^2.5.1",
     "angular": "^1.2.4",
     "angular-resource": "^1.3.0",
     "angular-route": "^1.3.0",

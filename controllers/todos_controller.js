@@ -1,6 +1,6 @@
 todoApp.controller('todosController',
-    ['$scope', 'Todo', '$location',
-        function ($scope, Todo, $location) {
+    ['$scope', 'Todo', '$location', 'notify',
+        function ($scope, Todo, $location, notify) {
 
             function loadtodos() {
                 $scope.todos = Todo.query();
@@ -12,13 +12,15 @@ todoApp.controller('todosController',
 
             $scope.addTodo = function () {
                 Todo.save({todo: $scope.newTodo}).$promise.then(function () {
-                    loadtodos();
                     $scope.newTodo = {title: ''};
+                    notify({message: 'Todo created successfully.', duration: 1000})
+                    loadtodos();
                 });
             };
 
             $scope.deleteTodo = function (todoId) {
                 Todo.destroy({id: todoId}).$promise.then(function () {
+                    notify({message: 'Todo deleted successfully.', duration: 1000})
                     loadtodos();
                 });
             };
@@ -31,10 +33,11 @@ todoApp.controller('todosController',
                 Todo.toggleStatus({id: todoId},
                     {id: todoId, status: requestedStatus}).$promise.then(function () {
                     $location.path('/')
+                    notify({message: 'Todo marked as ' + requestedStatus + '.', duration: 1000})
                 });
             };
 
-            $scope.query = "";
+            $scope.query = '';
             $scope.queryViaTag = function () {
                 $location.path('/search/' + $scope.query)
             };

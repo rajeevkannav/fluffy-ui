@@ -15,11 +15,14 @@
     <div ng-switch-default>
         <div class="row" ng-repeat="todo in todos">
             <div class="col-md-8">
-                {{todo.title}}
+                {{$index+ 1}} {{todo.title}}
+                <span class="badge badge-success">{{todo.status}}</span>
+
             </div>
             <div class="col-md-4">
                 <a href="#" ng-click="restoreTodo(todo._id.$oid)"> Restore </a>
             </div>
+            <hr style="width: 100%; color: #8c8b8b; height: 0.5px;"/>
         </div>
     </div>
 </div>

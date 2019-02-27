@@ -1,6 +1,6 @@
 todoApp.controller('editTodoController',
-    ['$scope', '$routeParams', 'Todo', '$location',
-        function ($scope, $routeParams, Todo, $location) {
+    ['$scope', '$routeParams', 'Todo', '$location', 'notify',
+        function ($scope, $routeParams, Todo, $location, notify) {
 
             function initialize() {
                 $scope.todoId = $routeParams.id;
@@ -12,6 +12,7 @@ todoApp.controller('editTodoController',
             $scope.updateTodo = function (todoId) {
                 Todo.update({id: todoId}, {title: $scope.todo.title}).$promise.then(function () {
                     $location.path('/')
+                    notify({message: 'Todo updated successfully.', duration: 1000})
                 });
             };
         }]);
