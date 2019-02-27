@@ -14,15 +14,33 @@
  - Ubuntu 16.04.5 LTS
  - node (v8.15.0)
  - npm (6.4.1)
- - 
+ - angular-js 1.2.4
 
 ## installation
 
 ```
-git clone git@github.com:rajeevkannav/fluffy.git
-cd fluffy
-gem install bundler
-bundle install
-rake db:create db:seed
-rails s
+git clone git@github.com:rajeevkannav/fluffy-ui.git
+cd fluffy-ui
+npm install
 ```
+
+running it with Rubymine's default HTTP/WEB server 
+
+## Features
+
+ - Add a todo
+ - Edit a todo title
+ - Mark/unmark todo as finished
+ - Delete (Soft) a todo
+ - Restore a deleted todo
+ - Attach a Tag to todo(s)
+ - Search Todo(s) by tag
+ 
+## Test
+
+    TBD
+    
+## issues
+
+    No issues as of now
+
