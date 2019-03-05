@@ -10,11 +10,12 @@
             </div>
         </div>
     </div>
+
     <div ng-switch-default>
         <div class="row" ng-repeat="todo in todos">
             <div class="col-md-8">
-                <a href="#" ng-class="{lineThrough: todo.status === 'finished'}"
-                   ng-click="toggleStatus(todo._id.$oid, todo.status)">
+                <a href ng-class="{lineThrough: todo.status === 'finished'}"
+                   ng-click="toggleStatus(todo)">
                     <input type="checkbox"
                            ng-checked="todo.status === 'finished'"
                            class="pull-left">
@@ -32,7 +33,7 @@
                 |
                 <a href="#/attachTags/{{todo._id.$oid}}"> Attach Tag(s) </a>
                 |
-                <a href="#" ng-click="deleteTodo(todo._id.$oid)"> Delete </a>
+                <a href ng-click="deleteTodo(todo)"> Delete </a>
             </div>
         </div>
     </div>
