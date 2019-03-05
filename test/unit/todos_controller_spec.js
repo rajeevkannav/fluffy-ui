@@ -1,45 +1,82 @@
 describe('todosController', function () {
 
-    // var $httpBackend, $rootScope, createController, $scope ;
-    var ctrl, scope;
+    var ctrl, scope, httpBackend, rootUrl, sampleTodo;
     beforeEach(module('todoApp'));
 
-    beforeEach(inject(function (_$rootScope_, _$controller_) {
+    beforeEach(inject(function (_$httpBackend_, _$rootScope_, _$controller_) {
 
         var $rootScope = _$rootScope_;
         var $controller = _$controller_;
-
+        httpBackend = _$httpBackend_;
         scope = $rootScope.$new();
-        ctrl = $controller('todosController', {'$scope': $rootScope});
+        rootUrl = 'http://localhost:3000/api/';
+        sampleTodo = {
+            _id: {$oid: 'jdfhjg235345'},
+            title: 'Test Todo',
+            status: 'started'
+        };
 
 
-        // Set up the mock http service responses
-        // $httpBackend = $injector.get('$httpBackend');
-        // $httpBackend.when('GET', 'pages/createTodo.htm').respond({ body: '<html><body>Mock homepage</body></html>'});
-        // $httpBackend.when('GET', 'pages/index.htm').respond({ body: '<html><body>Mock Indexpage</body></html>'});
-        // Get hold of a scope (i.e. the root scope)
-        // $rootScope = $injector.get('$rootScope');
+        httpBackend.expectGET(rootUrl + 'todos').respond(200, []);
+        ctrl = $controller('todosController', {'$scope': scope});
+        httpBackend.flush();
     }));
 
     afterEach(function () {
-        // $httpBackend.verifyNoOutstandingExpectation();
-        // $httpBackend.verifyNoOutstandingRequest();
+        httpBackend.verifyNoOutstandingExpectation();
+        httpBackend.verifyNoOutstandingRequest();
     });
 
 
     it("todoscontroller should be defined", function () {
         expect(ctrl).toBeDefined();
+        expect(scope.newTodo).toBeDefined();
+        expect(scope.newTodo.title).toBe('');
+        expect(scope.todos.length).toBe(0);
     });
 
-    it("scope todo should be defined with empty title", function () {
-        var newTodo = scope.newTodo;
-        expect(newTodo).toBeDefined();
-        expect(newTodo.title).toBe('');
+
+    it("should add newTodo to todos", function () {
+        scope.newTodo = {title: 'Test Todo'};
+        httpBackend.expectPOST(rootUrl + 'todos').respond(200, {
+            todo: scope.newTodo
+        });
+        scope.addTodo();
+        httpBackend.flush();
+        expect(scope.todos.length).toBe(1);
+        expect(scope.todos[0].title).toBe('Test Todo');
     });
 
-    it("scope todos should be defined with empty array", function () {
-        var todos = scope.todos;
-        expect(todos).toBeDefined();
+    it("should be able to update status of a todo", function () {
+
+        scope.todos = [sampleTodo];
+        expect(scope.todos[0].title).toBe('Test Todo');
+        expect(scope.todos[0].status).toBe('started');
+
+        httpBackend.expectPATCH(rootUrl + 'todos/' + sampleTodo._id.$oid + '/update_status', {
+            id: 'jdfhjg235345', status: 'finished'
+        }).respond(204, {
+            todo: {
+                _id: {$oid: 'jdfhjg235345'},
+                title: 'Test Todo',
+                status: 'finished'
+            }
+        });
+        scope.toggleStatus(sampleTodo);
+        httpBackend.flush();
+        expect(scope.todos[0].status).toBe('finished');
+    });
+
+
+    it("should be able to delete a todo", function () {
+        scope.todos = [
+            sampleTodo
+        ];
+        scope.newTodo = {title: 'Test Todo'};
+        httpBackend.expectDELETE(rootUrl + 'todos/' + sampleTodo._id.$oid).respond(204);
+        scope.deleteTodo(sampleTodo);
+        httpBackend.flush();
+        expect(scope.todos.length).toBe(0);
     });
 
 });
