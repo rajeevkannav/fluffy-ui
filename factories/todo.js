@@ -14,30 +14,15 @@ todoApp.factory('Todo', ['$resource', function ($resource) {
         },
         "restore": {
             method: 'PATCH',
-            url: "http://localhost:3000/api/todos/:id/restore",
-            interceptor: {
-                responseError: function (e) {
-                    console.warn('Problem making request to backend: ', e)
-                }
-            }
+            url: todoResourceUrl + '/restore'
         },
         "toggleStatus": {
             method: 'PATCH',
-            url: "http://localhost:3000/api/todos/:id/update_status",
-            interceptor: {
-                responseError: function (e) {
-                    console.warn('Problem making request to backend: ', e)
-                }
-            }
+            url: todoResourceUrl + '/update_status'
         },
         "attachTag": {
             method: 'PUT',
-            url: "http://localhost:3000/api/todos/:id/assign_tags",
-            interceptor: {
-                responseError: function (e) {
-                    console.warn('Problem making request to backend: ', e)
-                }
-            }
+            url: todoResourceUrl + '/assign_tags'
         }
 
     }
