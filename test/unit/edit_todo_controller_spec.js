@@ -40,7 +40,7 @@ describe('editTodoController', function () {
         expect(ctrl).toBeDefined();
     });
 
-    it("todo which is requested to edit should be defined", function () {
+    it("scope todo(requested to edit) should be defined", function () {
         // Assertions
         expect(scope.todo).toBeDefined();
     });

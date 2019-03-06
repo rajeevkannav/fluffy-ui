@@ -34,7 +34,7 @@ describe('archivedTodoController', function () {
         expect(ctrl).toBeDefined();
     });
 
-    it("empty todos collection should be defined", function () {
+    it("scope todos should be defined with no todo", function () {
         // Assertions
         expect(scope.todos).toBeDefined();
         expect(scope.todos.length).toBe(0);

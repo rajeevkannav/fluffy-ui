@@ -31,13 +31,21 @@ describe('todosController', function () {
     it("todoscontroller should be defined", function () {
         // Assertions
         expect(ctrl).toBeDefined();
-        expect(scope.newTodo).toBeDefined();
-        expect(scope.newTodo.title).toBe('');
+    });
+    it("scope todos should be defined with no todo", function () {
+        // Assertions
+        expect(scope.todos).toBeDefined();
         expect(scope.todos.length).toBe(0);
     });
 
+    it("scope newTodo should be defined with empty title", function () {
+        // Assertions
+        expect(scope.newTodo).toBeDefined();
+        expect(scope.newTodo.title).toBe('');
+    });
 
-    it("should add newTodo to todos", function () {
+
+    it("should be able add newTodo to todos", function () {
         // Arrangements
         scope.newTodo = {title: 'Test Todo'};
         // Action
@@ -51,7 +59,7 @@ describe('todosController', function () {
         expect(scope.todos[0].title).toBe('Test Todo');
     });
 
-    it("should be able to update status of a todo", function () {
+    it("should be able to update status as finished of a todo", function () {
         // Arrangements
         scope.todos = [sampleTodo];
         // Assertions
@@ -71,6 +79,33 @@ describe('todosController', function () {
         httpBackend.flush();
         // Assertions
         expect(scope.todos[0].status).toBe('finished');
+    });
+
+    it("should be able to update status as started of a todo", function () {
+        // Arrangements
+        var sampleFinishedTodo = {
+            _id: {$oid: 'jdfhjg235345'},
+            title: 'Test Todo',
+            status: 'finished'
+        }
+        scope.todos = [sampleFinishedTodo];
+        // Assertions
+        expect(scope.todos[0].title).toBe('Test Todo');
+        expect(scope.todos[0].status).toBe('finished');
+        // Action
+        httpBackend.expectPATCH(rootUrl + 'todos/' + sampleTodo._id.$oid + '/update_status', {
+            id: 'jdfhjg235345', status: 'started'
+        }).respond(204, {
+            todo: {
+                _id: {$oid: 'jdfhjg235345'},
+                title: 'Test Todo',
+                status: 'started'
+            }
+        });
+        scope.toggleStatus(sampleFinishedTodo);
+        httpBackend.flush();
+        // Assertions
+        expect(scope.todos[0].status).toBe('started');
     });
 
 
@@ -94,7 +129,7 @@ describe('todosController', function () {
         // Action
         scope.queryViaTag();
         // Assertions
-        expect(location.path()).toBe('/search/'+ scope.query);
+        expect(location.path()).toBe('/search/' + scope.query);
     });
 
 });
