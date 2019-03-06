@@ -1,13 +1,16 @@
 todoApp.controller('archivedTodoController',
-    ['$scope', '$location', 'Todo', 'notify',
-        function ($scope, $location, Todo, notify) {
+    ['$scope', 'Todo', 'notify',
+        function ($scope, Todo, notify) {
 
             loadArchivedTodos();
 
-            $scope.restoreTodo = function (todoId) {
-                Todo.restore({id: todoId}, {id: todoId});
-                $location.path('/');
-                notify({message: 'Todo restored successfully.', duration: 1000})
+            $scope.restoreTodo = function (todo) {
+                var todoId = todo._id.$oid;
+                var todoIndex = $scope.todos.indexOf(todo);
+                Todo.restore({id: todoId}, {id: todoId}).$promise.then(function (response) {
+                    $scope.todos.splice(todoIndex, 1);
+                    notify({message: 'Todo restored successfully.', duration: 1000})
+                });
             };
 
             function loadArchivedTodos() {
