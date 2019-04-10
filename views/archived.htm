@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 text-center">
-        <h3>Archived Todos</h3>
+        <h1>Archived Todos</h1>
     </div>
 </div>
 <br/>
@@ -15,7 +15,7 @@
     <div ng-switch-default>
         <div class="row" ng-repeat="todo in todos">
             <div class="col-md-8">
-                {{$index+ 1}} {{todo.title}}
+                {{$index+ 1}}. {{todo.title}}
                 <span class="badge badge-success">{{todo.status}}</span>
 
             </div>
@@ -26,3 +26,5 @@
         </div>
     </div>
 </div>
+<hr class="style5">
+
